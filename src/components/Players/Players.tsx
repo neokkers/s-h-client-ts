@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { server } from "../../lib/api/server";
-import { PlayersData, DeletePlayerData, DeletePlayerVariables } from "./types";
+import {
+  PlayersData,
+  DeletePlayerData,
+  DeletePlayerVariables,
+  Player,
+} from "./types";
+import { useQuery } from "../../lib/api/useQuery";
 
 const PLAYERS = `
   query Players {
@@ -29,22 +35,37 @@ interface Props {
 }
 
 export const Players = ({ title }: Props) => {
-  const fetchPlayers = async () => {
-    const { data } = await server.fetch<PlayersData>({ query: PLAYERS });
-    console.log(data);
-  };
-  const deletePlayer = async () => {
+  const { data, refetch } = useQuery<PlayersData>(PLAYERS);
+
+  const deletePlayer = async (id: string) => {
     const { data } = await server.fetch<
       DeletePlayerData,
       DeletePlayerVariables
-    >({ query: DELETE_PLAYER, variables: { id: "5ec50ae7363f4be1d80c9e06" } });
-    console.log(data);
+    >({ query: DELETE_PLAYER, variables: { id } });
+    console.log("player deleted");
+    await refetch();
   };
+
+  const players = data ? data.players : null;
+
+  const playersList = players && (
+    <ul>
+      {players.map((player) => (
+        <li key={player.id}>
+          {player.name}
+          <button onClick={() => deletePlayer(player.id)}>delete</button>
+        </li>
+      ))}
+    </ul>
+  );
+
   return (
     <div>
       <h2>{title}</h2>
-      <button onClick={fetchPlayers}>Fetch players</button>
-      <button onClick={deletePlayer}>Delete player</button>
+      {/*<button onClick={fetchPlayers}>Fetch players</button>*/}
+      {/*<button onClick={deletePlayer}>Delete player</button>*/}
+      <hr />
+      {playersList}
     </div>
   );
 };
