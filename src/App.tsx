@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import { Counter } from "./features/counter/Counter";
-import { Players } from "./components/Players/Players";
+import { Players } from "./components/player/Players";
 import "./App.css";
 
 function App() {

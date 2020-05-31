@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { server } from "./server";
-// import { PlayersData } from "../../components/Players/types";
+// import { PlayersData } from "../../components/player/types";
 
 interface State<TData> {
   data: TData | null;

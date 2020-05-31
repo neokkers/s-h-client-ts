@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../store";
-import { Player, PlayersData } from "../../components/Players/types";
+import { Player, PlayersData } from "../../components/player/types";
 import { server } from "../../lib/api/server";
 
 const PLAYERS = `
