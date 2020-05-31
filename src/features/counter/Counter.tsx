@@ -9,6 +9,8 @@ import {
 } from "../../redux/slices/counterSlice";
 import styles from "./Counter.module.css";
 
+// test
+
 export function Counter() {
   const count = useSelector(selectCount);
   const dispatch = useDispatch();
